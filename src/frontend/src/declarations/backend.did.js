@@ -23,9 +23,35 @@ export const Book = IDL.Record({
   'rating' : IDL.Float64,
   'price' : IDL.Float64,
 });
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const CartItem = IDL.Record({
   'bookId' : IDL.Nat,
   'quantity' : IDL.Int,
+});
+export const OrderStatus = IDL.Variant({
+  'shipped' : IDL.Null,
+  'pending' : IDL.Null,
+  'delivered' : IDL.Null,
+  'processing' : IDL.Null,
+});
+export const OrderItem = IDL.Record({
+  'bookId' : IDL.Nat,
+  'quantity' : IDL.Int,
+  'priceAtPurchase' : IDL.Float64,
+});
+export const Order = IDL.Record({
+  'status' : OrderStatus,
+  'orderId' : IDL.Nat,
+  'totalAmount' : IDL.Float64,
+  'placedAt' : IDL.Int,
+  'shippingAddress' : IDL.Text,
+  'buyer' : IDL.Principal,
+  'items' : IDL.Vec(OrderItem),
 });
 export const ContactForm = IDL.Record({
   'name' : IDL.Text,
@@ -34,16 +60,30 @@ export const ContactForm = IDL.Record({
 });
 
 export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addBook' : IDL.Func([Book], [IDL.Nat], []),
   'addToCart' : IDL.Func([IDL.Nat, IDL.Int], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'clearCart' : IDL.Func([], [], []),
   'getAllBooks' : IDL.Func([], [IDL.Vec(Book)], ['query']),
   'getBook' : IDL.Func([IDL.Nat], [Book], ['query']),
   'getBooksByCategory' : IDL.Func([BookCategory], [IDL.Vec(Book)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getCart' : IDL.Func([], [IDL.Vec(CartItem)], ['query']),
   'getFeaturedBooks' : IDL.Func([], [IDL.Vec(Book)], ['query']),
+  'getMyOrders' : IDL.Func([], [IDL.Vec(Order)], ['query']),
   'getNewReleases' : IDL.Func([], [IDL.Vec(Book)], ['query']),
+  'getOrderById' : IDL.Func([IDL.Nat], [IDL.Opt(Order)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'placeOrder' : IDL.Func([IDL.Text], [IDL.Nat], []),
   'removeFromCart' : IDL.Func([IDL.Nat], [], []),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'searchBooks' : IDL.Func([IDL.Text], [IDL.Vec(Book)], ['query']),
   'submitContactForm' : IDL.Func([ContactForm], [], []),
 });
@@ -66,7 +106,33 @@ export const idlFactory = ({ IDL }) => {
     'rating' : IDL.Float64,
     'price' : IDL.Float64,
   });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const CartItem = IDL.Record({ 'bookId' : IDL.Nat, 'quantity' : IDL.Int });
+  const OrderStatus = IDL.Variant({
+    'shipped' : IDL.Null,
+    'pending' : IDL.Null,
+    'delivered' : IDL.Null,
+    'processing' : IDL.Null,
+  });
+  const OrderItem = IDL.Record({
+    'bookId' : IDL.Nat,
+    'quantity' : IDL.Int,
+    'priceAtPurchase' : IDL.Float64,
+  });
+  const Order = IDL.Record({
+    'status' : OrderStatus,
+    'orderId' : IDL.Nat,
+    'totalAmount' : IDL.Float64,
+    'placedAt' : IDL.Int,
+    'shippingAddress' : IDL.Text,
+    'buyer' : IDL.Principal,
+    'items' : IDL.Vec(OrderItem),
+  });
   const ContactForm = IDL.Record({
     'name' : IDL.Text,
     'email' : IDL.Text,
@@ -74,16 +140,30 @@ export const idlFactory = ({ IDL }) => {
   });
   
   return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addBook' : IDL.Func([Book], [IDL.Nat], []),
     'addToCart' : IDL.Func([IDL.Nat, IDL.Int], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'clearCart' : IDL.Func([], [], []),
     'getAllBooks' : IDL.Func([], [IDL.Vec(Book)], ['query']),
     'getBook' : IDL.Func([IDL.Nat], [Book], ['query']),
     'getBooksByCategory' : IDL.Func([BookCategory], [IDL.Vec(Book)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getCart' : IDL.Func([], [IDL.Vec(CartItem)], ['query']),
     'getFeaturedBooks' : IDL.Func([], [IDL.Vec(Book)], ['query']),
+    'getMyOrders' : IDL.Func([], [IDL.Vec(Order)], ['query']),
     'getNewReleases' : IDL.Func([], [IDL.Vec(Book)], ['query']),
+    'getOrderById' : IDL.Func([IDL.Nat], [IDL.Opt(Order)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'placeOrder' : IDL.Func([IDL.Text], [IDL.Nat], []),
     'removeFromCart' : IDL.Func([IDL.Nat], [], []),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'searchBooks' : IDL.Func([IDL.Text], [IDL.Vec(Book)], ['query']),
     'submitContactForm' : IDL.Func([ContactForm], [], []),
   });

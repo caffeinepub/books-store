@@ -169,8 +169,9 @@ export function CartDrawer() {
                   <Button
                     data-ocid="cart.primary_button"
                     className="w-full rounded-full py-5 bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
+                    onClick={closeCart}
                   >
-                    Proceed to Checkout
+                    Continue Shopping
                   </Button>
                   <Button
                     data-ocid="cart.delete_button"

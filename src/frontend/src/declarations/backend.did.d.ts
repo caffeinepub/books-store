@@ -29,17 +29,49 @@ export interface ContactForm {
   'email' : string,
   'message' : string,
 }
+export interface Order {
+  'status' : OrderStatus,
+  'orderId' : bigint,
+  'totalAmount' : number,
+  'placedAt' : bigint,
+  'shippingAddress' : string,
+  'buyer' : Principal,
+  'items' : Array<OrderItem>,
+}
+export interface OrderItem {
+  'bookId' : bigint,
+  'quantity' : bigint,
+  'priceAtPurchase' : number,
+}
+export type OrderStatus = { 'shipped' : null } |
+  { 'pending' : null } |
+  { 'delivered' : null } |
+  { 'processing' : null };
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addBook' : ActorMethod<[Book], bigint>,
   'addToCart' : ActorMethod<[bigint, bigint], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'clearCart' : ActorMethod<[], undefined>,
   'getAllBooks' : ActorMethod<[], Array<Book>>,
   'getBook' : ActorMethod<[bigint], Book>,
   'getBooksByCategory' : ActorMethod<[BookCategory], Array<Book>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getCart' : ActorMethod<[], Array<CartItem>>,
   'getFeaturedBooks' : ActorMethod<[], Array<Book>>,
+  'getMyOrders' : ActorMethod<[], Array<Order>>,
   'getNewReleases' : ActorMethod<[], Array<Book>>,
+  'getOrderById' : ActorMethod<[bigint], [] | [Order]>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'placeOrder' : ActorMethod<[string], bigint>,
   'removeFromCart' : ActorMethod<[bigint], undefined>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'searchBooks' : ActorMethod<[string], Array<Book>>,
   'submitContactForm' : ActorMethod<[ContactForm], undefined>,
 }

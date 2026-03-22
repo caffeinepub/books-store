@@ -43,7 +43,9 @@ function AppContent() {
   };
 
   const handleSearch = (query: string) => {
-    if (query) scrollTo(featuredRef);
+    if (query) {
+      scrollTo(featuredRef);
+    }
   };
 
   return (

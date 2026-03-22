@@ -1,15 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  BookOpen,
-  Heart,
-  Menu,
-  Search,
-  ShoppingCart,
-  User,
-  X,
-} from "lucide-react";
+import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useCartStore } from "../store/cartStore";
@@ -43,11 +35,12 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
     <header className="sticky top-0 z-50 bg-secondary/95 backdrop-blur-sm border-b border-border shadow-xs">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-4 h-16">
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <BookOpen className="w-6 h-6 text-primary" />
-            <span className="font-serif text-xl font-bold text-foreground whitespace-nowrap">
-              Books &amp; Store
-            </span>
+          <div className="flex items-center flex-shrink-0">
+            <img
+              src="/assets/generated/logo-transparent.dim_200x60.png"
+              alt="Books & Store"
+              className="h-10 w-auto object-contain"
+            />
           </div>
           <form
             onSubmit={handleSearchSubmit}
@@ -66,22 +59,6 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
             </div>
           </form>
           <div className="flex items-center gap-1 ml-auto">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden sm:flex w-9 h-9 rounded-full"
-              aria-label="Account"
-            >
-              <User className="w-4 h-4 text-muted-foreground" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden sm:flex w-9 h-9 rounded-full"
-              aria-label="Wishlist"
-            >
-              <Heart className="w-4 h-4 text-muted-foreground" />
-            </Button>
             <Button
               data-ocid="header.open_modal_button"
               variant="ghost"
@@ -119,7 +96,11 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
               key={link.id}
               data-ocid={`nav.${link.id}.link`}
               onClick={() => onNavClick(link.id)}
-              className={`text-sm font-medium transition-colors pb-1 border-b-2 ${activeSection === link.id ? "text-primary border-primary" : "text-muted-foreground border-transparent hover:text-foreground"}`}
+              className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                activeSection === link.id
+                  ? "text-primary border-primary"
+                  : "text-muted-foreground border-transparent hover:text-foreground"
+              }`}
             >
               {link.label}
             </button>
