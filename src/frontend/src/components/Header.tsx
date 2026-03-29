@@ -42,11 +42,11 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
             onClick={() => onNavClick("home")}
             className="shrink-0 flex items-center"
             data-ocid="header.link"
-            aria-label="Books & Store home"
+            aria-label="Books & More home"
           >
             <img
               src="/assets/uploads/img-20260322-wa0000-019d3868-4eef-71e7-bb32-8ae0e9aeec8d-1.jpg"
-              alt="Books & Store"
+              alt="Books & More"
               className="h-10 w-auto object-contain"
             />
             <span
@@ -57,7 +57,7 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
                 letterSpacing: "0.04em",
               }}
             >
-              Books &amp; stores
+              Books &amp; More
             </span>
           </button>
 
