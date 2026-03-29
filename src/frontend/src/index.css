@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,51 +6,85 @@
 
 @layer base {
   :root {
-    --radius: 0.875rem;
-    --background: 0.962 0.015 85;
-    --foreground: 0.19 0.012 245;
-    --card: 0.98 0.008 85;
-    --card-foreground: 0.19 0.012 245;
-    --popover: 0.98 0.008 85;
-    --popover-foreground: 0.19 0.012 245;
-    --primary: 0.5 0.058 230;
-    --primary-foreground: 0.98 0 0;
-    --secondary: 0.928 0.022 80;
-    --secondary-foreground: 0.19 0.012 245;
-    --muted: 0.935 0.01 235;
-    --muted-foreground: 0.47 0.014 245;
-    --accent: 0.91 0.033 55;
-    --accent-foreground: 0.19 0.012 245;
-    --destructive: 0.577 0.245 27.325;
+    --radius: 0.75rem;
+
+    /* Warm cream background #F3EDE3 */
+    --background: 0.947 0.018 75;
+    --foreground: 0.155 0.01 50;
+
+    /* Card white #FFFFFF */
+    --card: 1 0 0;
+    --card-foreground: 0.155 0.01 50;
+
+    --popover: 1 0 0;
+    --popover-foreground: 0.155 0.01 50;
+
+    /* Dusty rose button #D5A6A1 */
+    --primary: 0.73 0.065 15;
+    --primary-foreground: 0.155 0.01 50;
+
+    /* Light beige #EAD8CC */
+    --secondary: 0.905 0.028 60;
+    --secondary-foreground: 0.155 0.01 50;
+
+    --muted: 0.93 0.015 75;
+    --muted-foreground: 0.48 0.012 50;
+
+    /* Powder blue #D7EAF7 */
+    --accent: 0.932 0.032 228;
+    --accent-foreground: 0.155 0.01 50;
+
+    --destructive: 0.577 0.245 27;
     --destructive-foreground: 0.985 0 0;
-    --border: 0.88 0.018 80;
-    --input: 0.88 0.018 80;
-    --ring: 0.5 0.058 230;
-    --gold: 0.77 0.12 75;
-    --chart-1: 0.646 0.222 41.116;
-    --chart-2: 0.6 0.118 184.704;
-    --chart-3: 0.398 0.07 227.392;
-    --chart-4: 0.828 0.189 84.429;
-    --chart-5: 0.769 0.188 70.08;
-    --sidebar: 0.928 0.022 80;
-    --sidebar-foreground: 0.19 0.012 245;
-    --sidebar-primary: 0.5 0.058 230;
-    --sidebar-primary-foreground: 0.98 0 0;
-    --sidebar-accent: 0.91 0.033 55;
-    --sidebar-accent-foreground: 0.19 0.012 245;
-    --sidebar-border: 0.88 0.018 80;
-    --sidebar-ring: 0.5 0.058 230;
+
+    --border: 0.88 0.02 70;
+    --input: 0.88 0.02 70;
+    --ring: 0.73 0.065 15;
+
+    /* Category tints */
+    --fiction-tint: 0.888 0.032 20;
+    --nonfiction-tint: 0.905 0.042 225;
+    --academic-tint: 0.905 0.04 150;
+
+    /* Footer gradient */
+    --footer-start: 0.875 0.038 290;
+    --footer-end: 0.91 0.038 155;
+
+    /* New arrivals band */
+    --arrivals-bg: 0.93 0.034 228;
+
+    --chart-1: 0.646 0.222 41;
+    --chart-2: 0.6 0.118 184;
+    --chart-3: 0.398 0.07 227;
+    --chart-4: 0.828 0.189 84;
+    --chart-5: 0.769 0.188 70;
+
+    --sidebar: 0.905 0.028 60;
+    --sidebar-foreground: 0.155 0.01 50;
+    --sidebar-primary: 0.73 0.065 15;
+    --sidebar-primary-foreground: 0.155 0.01 50;
+    --sidebar-accent: 0.932 0.032 228;
+    --sidebar-accent-foreground: 0.155 0.01 50;
+    --sidebar-border: 0.88 0.02 70;
+    --sidebar-ring: 0.73 0.065 15;
   }
+
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
   }
+
   h1,
   h2,
-  h3 {
-    font-family: "Playfair Display", serif;
+  h3,
+  h4 {
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.2;
   }
 }

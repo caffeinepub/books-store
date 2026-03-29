@@ -1,151 +1,127 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { BookOpen, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
-
-const socialLinks = [
-  { Icon: Instagram, label: "Instagram" },
-  { Icon: Twitter, label: "Twitter" },
-  { Icon: Facebook, label: "Facebook" },
-  { Icon: Youtube, label: "YouTube" },
-];
-
-const exploreLinks = [
-  "Fiction",
-  "Non-Fiction",
-  "Academic",
-  "Best Sellers",
-  "New Releases",
-  "Award Winners",
-];
-const helpLinks = [
-  "Track Order",
-  "Shipping Policy",
-  "Return Policy",
-  "FAQ",
-  "Contact Us",
-  "Store Locations",
-];
+import { BookOpen } from "lucide-react";
+import { SiFacebook, SiInstagram, SiX } from "react-icons/si";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      toast.success("Subscribed!", {
-        description: "You're now on our reading list.",
-      });
-      setEmail("");
-    }
-  };
-
-  const currentYear = new Date().getFullYear();
-  const utmLink = `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`;
+  const year = new Date().getFullYear();
 
   return (
-    <footer style={{ backgroundColor: "oklch(0.928 0.022 80)" }}>
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-primary" />
-              <span className="font-serif text-lg font-bold text-foreground">
+    <footer
+      className="w-full mt-auto"
+      style={{
+        background:
+          "linear-gradient(135deg, oklch(var(--footer-start)) 0%, oklch(var(--footer-end)) 100%)",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+          {/* Brand */}
+          <div className="col-span-2 sm:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <BookOpen className="w-5 h-5 text-foreground/70" />
+              <span className="font-serif font-bold text-lg text-foreground">
                 Books &amp; Store
               </span>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-              Your premier destination for books of every genre. Curated
-              collections, expert recommendations, and a love for great
-              literature.
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Your curated online bookstore. Discover your next great read.
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map(({ Icon, label }) => (
-                <button
-                  type="button"
-                  key={label}
-                  aria-label={label}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-foreground/10 hover:bg-primary hover:text-white transition-colors"
-                >
-                  <Icon className="w-4 h-4" />
-                </button>
-              ))}
+            <div className="flex items-center gap-3 mt-4">
+              <a
+                href="https://instagram.com"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <SiInstagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://x.com"
+                aria-label="X/Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <SiX className="w-4 h-4" />
+              </a>
+              <a
+                href="https://facebook.com"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <SiFacebook className="w-4 h-4" />
+              </a>
             </div>
           </div>
+
+          {/* Discover */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
-              Explore
+            <h4 className="font-semibold text-sm text-foreground mb-3">
+              Discover
             </h4>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
-              {exploreLinks.map((item) => (
+            <ul className="flex flex-col gap-2">
+              {["Fiction", "Non-Fiction", "Academic", "New Arrivals"].map(
+                (item) => (
+                  <li key={item}>
+                    <span className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
+                      {item}
+                    </span>
+                  </li>
+                ),
+              )}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="font-semibold text-sm text-foreground mb-3">
+              Company
+            </h4>
+            <ul className="flex flex-col gap-2">
+              {["About Us", "Careers", "Press", "Blog"].map((item) => (
                 <li key={item}>
-                  <button
-                    type="button"
-                    className="hover:text-foreground transition-colors"
-                  >
+                  <span className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
                     {item}
-                  </button>
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Support */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
-              Help
+            <h4 className="font-semibold text-sm text-foreground mb-3">
+              Support
             </h4>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
-              {helpLinks.map((item) => (
+            <ul className="flex flex-col gap-2">
+              {["FAQ", "Shipping", "Returns", "Contact Us"].map((item) => (
                 <li key={item}>
-                  <button
-                    type="button"
-                    className="hover:text-foreground transition-colors"
-                  >
+                  <span className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
                     {item}
-                  </button>
+                  </span>
                 </li>
               ))}
             </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
-              Newsletter
-            </h4>
-            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Get weekly reading recommendations and exclusive offers.
-            </p>
-            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-              <Input
-                data-ocid="footer.input"
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-background border-border rounded-full text-sm"
-              />
-              <Button
-                data-ocid="footer.submit_button"
-                type="submit"
-                className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm"
-              >
-                Subscribe
-              </Button>
-            </form>
           </div>
         </div>
-        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>&copy; {currentYear} Books &amp; Store. All rights reserved.</p>
-          <p>
-            Built with ♥ using{" "}
+
+        <div className="border-t border-border/40 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs text-muted-foreground">
+            &copy; {year}. Built with <span aria-label="love">♥</span> using{" "}
             <a
-              href={utmLink}
+              href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== "undefined" ? window.location.hostname : "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground underline underline-offset-2"
+              className="underline hover:text-foreground transition-colors"
             >
               caffeine.ai
             </a>
           </p>
+          <span className="text-xs text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
+            Privacy Policy
+          </span>
         </div>
       </div>
     </footer>
