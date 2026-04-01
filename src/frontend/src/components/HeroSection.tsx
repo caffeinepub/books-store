@@ -21,7 +21,7 @@ export function HeroSection({ onShopNow }: HeroSectionProps) {
           className="max-w-lg"
         >
           <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
-            Welcome to Books &amp; Store
+            Welcome to Books &amp; More
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-tight">
             Discover Your

@@ -45,20 +45,10 @@ export function Header({ onSearch, activeSection, onNavClick }: HeaderProps) {
             aria-label="Books & More home"
           >
             <img
-              src="/assets/uploads/img-20260322-wa0000-019d3868-4eef-71e7-bb32-8ae0e9aeec8d-1.jpg"
-              alt="Books & More"
-              className="h-10 w-auto object-contain"
+              src="/assets/img_20260401_183358-019d4925-8afb-7109-8602-1d4e150528ff.jpg"
+              alt="Books & More Book Store"
+              className="h-16 w-auto object-contain"
             />
-            <span
-              className="ml-3 bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-500 bg-clip-text text-transparent font-bold tracking-wide"
-              style={{
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: "1.25rem",
-                letterSpacing: "0.04em",
-              }}
-            >
-              Books &amp; More
-            </span>
           </button>
 
           {/* Search */}
